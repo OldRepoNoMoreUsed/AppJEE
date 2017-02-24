@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AppJEE.iml" filepath="$PROJECT_DIR$/.idea/modules/AppJEE.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AppJEE_main.iml" filepath="$PROJECT_DIR$/.idea/modules/AppJEE_main.iml" group="AppJEE" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/AppJEE_test.iml" filepath="$PROJECT_DIR$/.idea/modules/AppJEE_test.iml" group="AppJEE" />
+    </modules>
+  </component>
+</project>
