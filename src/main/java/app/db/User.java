@@ -28,7 +28,7 @@ public class User {
 
     @Override
     public String toString(){
-        return String.format("User[id=%d, name='%s']", id, name);
+        return String.format("Follower[id=%d, name='%s']", id, name);
     }
 
 }
