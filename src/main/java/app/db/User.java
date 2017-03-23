@@ -1,34 +1,43 @@
 package app.db;
 
 
-import com.sun.javafx.beans.IDProperty;
 
-import javax.annotation.Generated;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
-/**
- * Created by nicolas on 16.03.17.
- */
 
 @Entity
+@Table(name = "users")
 public class User {
+
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
+    @NotNull
     private String name;
+    @NotNull
+    private String email;
 
-    protected User(){}
-
-    public User(String name){
+    public Long getId() {
+        return id;
+    }
+    public void setId(Long id) {
+        this.id = id;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
         this.name = name;
     }
+    public String getEmail() { return email; }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    @Override
-    public String toString(){
-        return String.format("User[id=%d, name='%s']", id, name);
+    public User(String email, String name){
+        this.email = email;
+        this.name = name;
     }
 
 }
