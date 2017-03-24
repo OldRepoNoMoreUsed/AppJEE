@@ -35,15 +35,9 @@ public class User {
         this.email = email;
     }
 
-<<<<<<< HEAD
     public User(String email, String name){
         this.email = email;
         this.name = name;
-=======
-    @Override
-    public String toString(){
-        return String.format("Follower[id=%d, name='%s']", id, name);
->>>>>>> bbea560722e8bcd25081c683f8068f964ac603b9
     }
 
 }
