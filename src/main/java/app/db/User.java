@@ -14,7 +14,7 @@ public class User {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
     @NotNull
-    private String name;
+    private String userName;
     @NotNull
     private String email;
 
@@ -24,9 +24,9 @@ public class User {
     public void setId(Long id) {
         this.id = id;
     }
-    public String getName() { return name; }
-    public void setName(String name) {
-        this.name = name;
+    public String getUserName() { return userName; }
+    public void setUserName(String name) {
+        this.userName = name;
     }
     public String getEmail() { return email; }
     public void setEmail(String email) {
@@ -35,7 +35,7 @@ public class User {
 
     public User(String email, String name){
         this.email = email;
-        this.name = name;
+        this.userName = name;
     }
 
 }

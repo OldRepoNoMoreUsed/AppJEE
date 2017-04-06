@@ -18,6 +18,8 @@ public class Post {
     private String content;
     @NotNull
     private Long projectID;
+    @NotNull
+    private boolean restricted;
 
     public Long getId() {
         return id;
@@ -41,10 +43,17 @@ public class Post {
     public void setProjectID(Long projectID) {
         this.projectID = projectID;
     }
+    public boolean getRestricted() {
+        return restricted;
+    }
+    public void setRestricted(boolean restricted) {
+        this.restricted = restricted;
+    }
 
-    public Post(String title, String content, Long projectID){
+    public Post(String title, String content, Long projectID, boolean restricted){
         this.title = title;
         this.content = content;
         this.projectID = projectID;
+        this.restricted = restricted;
     }
 }
