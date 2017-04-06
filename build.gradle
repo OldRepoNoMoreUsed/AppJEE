@@ -33,6 +33,7 @@ dependencies {
     }
     testCompile("org.springframework.boot:spring-boot-starter-test")
     compile("org.springframework.boot:spring-boot-starter-data-jpa")
+    compile("org.springframework.boot:spring-boot-starter-security")
     compile("org.springframework.boot:spring-boot-starter-jdbc")
     compile("org.springframework.boot:spring-boot-starter-jetty")
     // end::jetty[]
@@ -42,4 +43,5 @@ dependencies {
     testCompile("junit:junit")
     compile("org.springframework.boot:spring-boot-starter-thymeleaf")
     runtime("mysql:mysql-connector-java:5.1.37")
+
 }

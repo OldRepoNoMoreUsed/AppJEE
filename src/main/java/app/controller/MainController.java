@@ -11,8 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class MainController {
 
     @RequestMapping("/")
-    public String index(Model model) {
-        model.addAttribute("message", "HELLO !!!");
+    public String index() {
         return "home";
     }
 
