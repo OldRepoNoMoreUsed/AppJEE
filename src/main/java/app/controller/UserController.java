@@ -59,7 +59,7 @@ public class UserController {
         try{
             User user = userRepository.findOne(id);
             user.setEmail(email);
-            user.setName(name);
+            user.setUserName(name);
             userRepository.save(user);
         }catch(Exception e){
             return "Error updating the user:" + e.toString();
