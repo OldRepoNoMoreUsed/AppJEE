@@ -2,7 +2,7 @@ package app.controllers;
 
 import app.models.Post;
 import app.services.PostService;
-import app.services.PostServiceStubImpl;
+//import app.services.PostServiceStubImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

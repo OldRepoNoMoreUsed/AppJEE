@@ -7,6 +7,9 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
+import java.util.HashSet;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
 
 @Service
 @Primary
@@ -14,6 +17,9 @@ public class UserServiceJpaImpl implements UserService {
 
     @Autowired
     private UserRepository userRepo;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public List<User> findAll() {
@@ -51,5 +57,16 @@ public class UserServiceJpaImpl implements UserService {
         create(user);
         System.out.println("C'est passe par la");
         return true;
+    }
+
+    @Override
+    public void save(User user) {
+        user.setPasswordHash(bCryptPasswordEncoder.encode(user.getPasswordHash()));
+        userRepo.save(user);
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepo.findByUsername(username);
     }
 }

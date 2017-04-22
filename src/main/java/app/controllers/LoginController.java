@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.forms.LoginForm;
 import app.services.NotificationService;
+import app.services.SecurityService;
 import app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,25 +19,28 @@ public class LoginController {
     private UserService userService;
 
     @Autowired
+    private SecurityService securityService;
+
+    @Autowired
     private NotificationService notifyService;
 
-    @RequestMapping("/users/login")
+    @RequestMapping("/login")
     public String login(LoginForm loginForm) {
-        return "users/login";
+        return "login";
     }
 
-    @RequestMapping(value = "/users/login", method = RequestMethod.POST)
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String loginPage(@Valid LoginForm loginForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             notifyService.addErrorMessage("Please fill the form correctly!");
-            return "users/login";
+            return "login";
         }
 
         if (!userService.authenticate(
 
                 loginForm.getUsername(), loginForm.getPassword())) {
             notifyService.addErrorMessage("Invalid login!");
-            return "users/login";
+            return "login";
         }
 
         notifyService.addInfoMessage("Login successful");
