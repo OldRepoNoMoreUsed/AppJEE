@@ -1,4 +1,4 @@
-package app.services;
+/*package app.services;
 
 import app.models.Post;
 import app.models.User;
@@ -70,3 +70,4 @@ public class PostServiceStubImpl implements PostService{
         throw new RuntimeException("Post not found: " + id);
     }
 }
+*/
