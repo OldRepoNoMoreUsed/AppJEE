@@ -7,10 +7,10 @@
 <body>
 <header th:replace="layout :: site-header"/>
 
-<!--<aside>
-    <h2>Recent Posts</h2>
+<aside>
+    <h2>Search Project</h2>
     <a href="#" th:each="p : ${projects}" th:text="${p.title}" th:href="@{/projects/view/{id}/(id=${p.id})}">Work</a>
-</aside>-->
+</aside>
 
 <main id="projects">
     <article th:each="p : ${projects}">
