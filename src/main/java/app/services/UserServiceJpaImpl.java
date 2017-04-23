@@ -62,6 +62,7 @@ public class UserServiceJpaImpl implements UserService {
     @Override
     public void save(User user) {
         user.setPasswordHash(bCryptPasswordEncoder.encode(user.getPasswordHash()));
+        System.out.println("C'est passe par la");
         userRepo.save(user);
     }
 

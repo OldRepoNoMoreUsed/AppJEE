@@ -1,6 +1,7 @@
 package app.models;
 
 import org.springframework.data.annotation.*;
+import org.springframework.data.annotation.Transient;
 
 import javax.persistence.*;
 import javax.persistence.Id;
@@ -22,6 +23,7 @@ public class User {
 
     @Column(length = 100)
     private String email;
+
 
     public User() {}
     public User(Long id, String username, String email){
@@ -54,6 +56,7 @@ public class User {
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
     }
+
 
     public String getemail() {
         return email;
