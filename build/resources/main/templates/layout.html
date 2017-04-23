@@ -12,13 +12,13 @@
     <header>
         <a href="index.html" th:href="@{/}">Home</a>
         <a href="users/index.html" th:href="@{/users}">Users</a>
-        <a href="login.html" th:href="@{/users/login}">Login</a>
+        <a href="login.html" th:href="@{/login}">Login</a>
         <a href="users/register.html" th:href="@{/users/register}">Register</a>
 
         <a href="projects/search.html" th:href="@{/projects/search}">Projects</a>
         <a href="projects/create.html" th:href="@{/projects/create}">Create Project</a>
 
-        <div id="logged-in-info"><span>Hello, <b>(user)</b></span>
+        <div id="logged-in-info" th:text="${username}"><span>Hello, username</span>
             <form methode="post" th:action="@{/users/logout}">
                 <input type="submit" value="Logout"/>
             </form>

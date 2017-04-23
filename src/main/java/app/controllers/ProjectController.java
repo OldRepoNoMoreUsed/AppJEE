@@ -19,6 +19,7 @@ import java.util.List;
 public class ProjectController {
     @Autowired
     private ProjectService projectService;
+    private PostService postService;
 
     @Autowired
     private NotificationService notifyService;
