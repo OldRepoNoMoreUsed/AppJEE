@@ -41,9 +41,7 @@ public class CreateController {
             return "projects/create";
         }
         User current = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        Project p = new Project(1L , createForm.getTitle(), createForm.getDescription(), current);
-//        Project p = new Project(1L , createForm.getTitle(), createForm.getDescription(),
-//                new User(1L, "creation",  "creation@test.test"));
+        Project p = new Project(createForm.getTitle(), createForm.getDescription(), current);
 
         projectService.create(p);
 

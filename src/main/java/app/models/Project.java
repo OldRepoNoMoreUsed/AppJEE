@@ -1,5 +1,7 @@
 package app.models;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -11,6 +13,7 @@ import java.util.Date;
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(nullable = false, length = 300)
@@ -28,8 +31,7 @@ public class Project {
 
     public Project() {}
 
-    public Project(Long id, String title, String description, User admin) {
-        this.id = id;
+    public Project(String title, String description, User admin) {
         this.title = title;
         this.description = description;
         this.admin = admin;
