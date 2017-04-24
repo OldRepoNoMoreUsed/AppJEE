@@ -57,7 +57,6 @@ public class User {
         this.passwordHash = passwordHash;
     }
 
-
     public String getemail() {
         return email;
     }

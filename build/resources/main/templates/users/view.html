@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: site-head">
+    <title th:text="${user.username}">View User</title>
+</head>
+
+<body>
+
+<header th:replace="layout :: site-header" />
+
+<main id="project">
+    <article>
+        <h2 class="username" th:text="${user.username}">Username</h2>
+        <p class="email" th:utext="${email}">email</p>
+    </article>
+</main>
+
+<footer th:replace="layout :: site-footer" />
+
+</body>
+
+</html>
