@@ -38,7 +38,7 @@ public class ProjectController {
     @Autowired
     private NotificationService notifyService;
 
-    @RequestMapping(value = "/projects")
+    @RequestMapping(value = "/projects/projects")
     public String index(Model model){
         List<Project>projects = projectService.findAll();
         if(projects == null){
