@@ -18,7 +18,7 @@
         <a href="projects/search.html" th:href="@{/projects/search}">Projects</a>
         <a href="projects/create.html" th:href="@{/projects/create}">Create Project</a>
 
-        <div id="logged-in-info"><span>Hello, <b>(user)</b></span>
+        <div id="logged-in-info" th:text="${username}"><span>Hello, username</span>
             <form methode="post" th:action="@{/users/logout}">
                 <input type="submit" value="Logout"/>
             </form>

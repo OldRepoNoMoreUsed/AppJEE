@@ -1,6 +1,7 @@
 package app.services;
 
 import app.models.Post;
+import app.models.Project;
 import app.repositories.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
@@ -23,6 +24,11 @@ public class PostServiceJpaImpl implements PostService{
         @Override
         public List<Post> findLatest5() {
             return this.postRepo.findLatest5Posts(new PageRequest(0, 5));
+        }
+
+        @Override
+        public List<Post> findByProject(Project project){
+            return this.postRepo.findByProject(project);
         }
 
         @Override

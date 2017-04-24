@@ -9,6 +9,7 @@ import java.util.Date;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(nullable = false, length = 300)
@@ -21,16 +22,19 @@ public class Post {
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
     private User author;
 
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    private Project project;
+
     @Column(nullable = false)
     private Date date = new Date();
 
     public Post() {}
 
-    public Post(Long id, String title, String body, User author) {
-        this.id = id;
+    public Post( String title, String body, User author, Project project) {
         this.title = title;
         this.body = body;
         this.author = author;
+        this.project = project;
     }
 
     public Long getId() {
@@ -73,6 +77,10 @@ public class Post {
         this.date = date;
     }
 
+    public Project getProject(){ return project; }
+
+    public void setProject(Project project){ this.project = project; }
+
     @Override
     public String toString() {
         return "Post{" +
@@ -81,6 +89,7 @@ public class Post {
                 ", body='" + body + '\'' +
                 ", author=" + author +
                 ", date=" + date +
+                ", projet=" + project +
                 '}';
     }
 }
