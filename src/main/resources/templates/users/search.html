@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: site-head">
+    <title>Users</title>
+</head>
+
+<body>
+<header th:replace="layout :: site-header"/>
+
+<aside>
+    <h2>Search user</h2>
+    <a href="#" th:each="u : ${users}" th:text="${u.username}" th:href="@{/users/view/{id}/(id=${u.id})}">Work</a>
+</aside>
+
+<main id="projects">
+    <article th:each="u : ${users}">
+        <h2 class="username" th:text="${u.username}">Username</h2>
+        <a href="#" th:href="@{/users/view/{id}/(id=${u.id})}">View user</a>
+    </article>
+</main>
+
+<footer th:replace="layout::site-footer"/>
+</body>
+</html>
