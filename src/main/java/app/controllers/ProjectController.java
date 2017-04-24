@@ -1,6 +1,7 @@
 package app.controllers;
 
 import app.forms.CreatePostForm;
+import app.forms.SearchForm;
 import app.models.Post;
 import app.models.Project;
 import app.models.User;
@@ -36,6 +37,17 @@ public class ProjectController {
 
     @Autowired
     private NotificationService notifyService;
+
+    @RequestMapping(value = "/projects")
+    public String index(Model model){
+        List<Project>projects = projectService.findAll();
+        if(projects == null){
+            notifyService.addErrorMessage("Cannot find any project");
+            return "redirect:/projects";
+        }
+        model.addAttribute("projects", projects);
+        return "projects/projects";
+    }
 
     @RequestMapping("/projects/view/{id}")
     public String view(@PathVariable("id") long id, Model model, CreatePostForm createPostForm){
@@ -84,14 +96,16 @@ public class ProjectController {
         return "projects/view";
     }
 
-    @RequestMapping("/projects/search")
-    public String search(Model model){
-        List<Project>projects = projectService.findAll();
+    //@RequestMapping("/projects/search")
+    @RequestMapping(value = "/projects/search", method = RequestMethod.POST)
+    public String search(Model model, SearchForm searchForm){
+        List<Project>projects = projectService.findByName(searchForm.getSearchTerm());
+        //searchForm.getSearchTerm()
         if(projects == null){
             notifyService.addErrorMessage("Cannot find any project");
-            return "redirect:/";
+            return "redirect:/projects/projects";
         }
         model.addAttribute("projects", projects);
-        return "projects/search";
+        return "projects/projects";
     }
 }

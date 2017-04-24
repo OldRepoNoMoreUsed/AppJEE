@@ -5,6 +5,9 @@ import app.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +24,12 @@ public class ProjectServiceJpaImpl implements ProjectService{
     @Override
     public List<Project> findAll() {
         return this.projectRepo.findAll();
+    }
+
+    @Override
+    public List<Project> findByName(String name){
+        return this.projectRepo.findByName(name);
+        //return this.projectRepo.findAll();
     }
 
     @Override

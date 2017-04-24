@@ -27,6 +27,11 @@ public class UserServiceJpaImpl implements UserService {
     }
 
     @Override
+    public List<User> findByName(String name){
+        return this.userRepo.findByName(name);
+    }
+
+    @Override
     public User findById(Long id) {
         return this.userRepo.findOne(id);
     }

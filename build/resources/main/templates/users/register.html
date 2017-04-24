@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="layout :: site-head">
+    <title>Register</title>
+</head>
+
+<body>
+
+<header th:replace="layout :: site-header" />
+
+<h1>Regiter on MeetSkill</h1>
+
+<form method="post" action="/users/register">
+    <div><label for="username">Username:</label></div>
+    <input id="username" type="text" name="username"/>
+
+
+    <div><label for="passwordHash">Password:</label></div>
+    <input id="passwordHash" type="password" name="passwordHash"/>
+
+    <div><label for="email">Email</label></div>
+    <input id="email" type="email" name="email"/>
+
+    <input type="hidden"
+           th:name="${_csrf.parameterName}"
+           th:value="${_csrf.token}" />
+
+    <div><input type="submit" value="Register"/>
+        <a href="register.html" th:href="@{/users/login}">[Go to login]</a></div>
+</form>
+
+<footer th:replace="layout :: site-footer" />
+
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout :: site-head">
+    <title>Projects</title>
+</head>
+
+<body>
+<header th:replace="layout :: site-header"/>
+
+<aside>
+    <form method="post" action="/projects/search">
+        <input type="hidden"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}" />
+        <h2>Search Project by title</h2>
+        <label for="search">Search</label>
+        <input type ="text" id="search" name="searchTerm" />
+        <button id="button-search" type="submit">Search projects</button>
+    </form>
+</aside>
+
+<main id="projects">
+    <article th:each="p : ${projects}">
+        <h2 class="title" th:text="${p.title}">Project Title</h2>
+        <div class="date">
+            <i>Posted on</i>
+            <span th:text="${#dates.format(p.date,'dd-MMM-yyyy')}">20-Avr-2017</span>
+            <span th:if="${p.admin}" th:remove="tag">
+                <i>by</i>
+                <span th:text="${p.admin.username}">Nadalin Steve</span>
+            </span>
+        </div>
+        <p class="content" th:utext="${p.description}">Project content</p>
+        <a href="#" th:href="@{/projects/view/{id}/(id=${p.id})}">View project</a>
+    </article>
+</main>
+
+<footer th:replace="layout::site-footer"/>
+</body>
+</html>

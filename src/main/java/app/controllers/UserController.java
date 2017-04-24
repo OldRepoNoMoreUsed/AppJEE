@@ -1,5 +1,7 @@
 package app.controllers;
 
+import app.forms.SearchForm;
+import app.models.Project;
 import app.models.User;
 import app.services.NotificationService;
 import app.services.UserService;
@@ -8,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
@@ -23,6 +26,17 @@ public class UserController {
     @Autowired
     private NotificationService notifyService;
 
+    @RequestMapping(value = "/users")
+    public String index(Model model){
+        List<User>users = userService.findAll();
+        if(users == null){
+            notifyService.addErrorMessage("Cannot find any project");
+            return "redirect:/users";
+        }
+        model.addAttribute("users", users);
+        return "users/users";
+    }
+
     @RequestMapping("/users/view/{id}")
     public String view(@PathVariable("id") long id, Model model) {
         User user = userService.findById(id);
@@ -36,14 +50,14 @@ public class UserController {
         return "users/view";
     }
 
-    @RequestMapping("/users/search")
-    public String search(Model model){
-        List<User>users = userService.findAll();
+    @RequestMapping(value = "/users/search", method = RequestMethod.POST)
+    public String search(Model model, SearchForm searchForm){
+        List<User>users = userService.findByName(searchForm.getSearchTerm());
         if(users == null){
             notifyService.addErrorMessage("Cannot find any user");
             return "redirect:/";
         }
         model.addAttribute("users", users);
-        return "users/search";
+        return "users/users";
     }
 }
