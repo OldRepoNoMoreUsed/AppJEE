@@ -8,8 +8,15 @@
 <header th:replace="layout :: site-header"/>
 
 <aside>
-    <h2>Search user</h2>
-    <a href="#" th:each="u : ${users}" th:text="${u.username}" th:href="@{/users/view/{id}/(id=${u.id})}">Work</a>
+    <form method="post" action="/users/search">
+        <input type="hidden"
+               th:name="${_csrf.parameterName}"
+               th:value="${_csrf.token}" />
+        <h2>Search user</h2>
+        <label for="search">Search</label>
+        <input type ="text" id="search" name="searchTerm" />
+        <button id="button-search" type="submit">Search user</button>
+    </form>
 </aside>
 
 <main id="projects">

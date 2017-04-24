@@ -11,11 +11,11 @@
 <header th:fragment="site-header" th:remove="tag">
     <header>
         <a href="index.html" th:href="@{/}">Home</a>
-        <a href="users/search.html" th:href="@{/users/search}">Users</a>
+        <a href="users/users.html" th:href="@{/users}">Users</a>
         <a href="login.html" th:href="@{/login}">Login</a>
         <a href="users/register.html" th:href="@{/users/register}">Register</a>
 
-        <a href="projects/search.html" th:href="@{/projects/search}">Projects</a>
+        <a href="projects/projects.html" th:href="@{/projects}">Projects</a>
         <a href="projects/create.html" th:href="@{/projects/create}">Create Project</a>
 
         <div id="logged-in-info" th:text="${username}"><span>Hello, username</span>
