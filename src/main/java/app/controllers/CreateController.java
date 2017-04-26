@@ -44,7 +44,7 @@ public class CreateController {
         User current = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         String title = createForm.getTitle();
         List<Project> project = projectService.findByName(title);
-        if(project == null){
+        if(project.isEmpty()){
             Project p = new Project(createForm.getTitle(), createForm.getDescription(), current);
             projectService.create(p);
         }
