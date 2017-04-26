@@ -12,7 +12,30 @@
 <main id="project">
     <article>
         <h2 class="username" th:text="${user.username}">Username</h2>
+        Email:
         <p class="email" th:utext="${email}">email</p>
+        Skills:
+        <p class="Skill">
+            <span th:each="skill: ${user.skills}">
+                <br/>
+                <span th:text="${skill.label}"/> - <span th:text="${skill.description}"/>
+            </span>
+        </p>
+        <div th:if="${user.id} == ${current.id}">
+
+            <form th:action="@{/users/view/{id}/skills(id=${user.id})}" method="post" enctype="multipart/form-data">
+                <input type="hidden"
+                       th:name="${_csrf.parameterName}"
+                       th:value="${_csrf.token}" />
+                <select name="skillId">
+                    <option th:each="skill : ${skills}"
+                            th:value="${skill.id}"
+                            th:text="${skill.description}">Skill</option>
+                </select>
+                <input type="submit" value="Add Skill"/>
+            </form>
+        </div>
+
     </article>
 </main>
 

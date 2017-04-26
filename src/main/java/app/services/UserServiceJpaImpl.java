@@ -1,13 +1,15 @@
 package app.services;
 
+import app.models.Skill;
 import app.models.User;
+import app.repositories.SkillRepository;
 import app.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
-import java.util.HashSet;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 
@@ -17,6 +19,9 @@ public class UserServiceJpaImpl implements UserService {
 
     @Autowired
     private UserRepository userRepo;
+
+    @Autowired
+    private SkillRepository skillRepository;
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -74,5 +79,18 @@ public class UserServiceJpaImpl implements UserService {
     @Override
     public User findByUsername(String username) {
         return userRepo.findByUsername(username);
+    }
+
+    @Override
+    public List<Skill> findAllSkill(){
+        return this.skillRepository.findAll();
+    }
+
+    public Skill findOneSkill(long id){
+        return this.skillRepository.findOne(id);
+    }
+
+    public User findOneUser(long id){
+        return this.userRepo.findOne(id);
     }
 }

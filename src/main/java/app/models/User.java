@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Transient;
 import javax.persistence.*;
 import javax.persistence.Id;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -24,6 +25,30 @@ public class User {
     @Column(length = 100)
     private String email;
 
+    @ManyToMany
+    private List<Skill> skills;
+
+    public List<Skill> getSkills(){
+        return this.skills;
+    }
+
+    public void setSkills(List<Skill> skills){
+        this.skills = skills;
+    }
+
+    public boolean hasSkill(Skill skill){
+        for(Skill containedSkill: getSkills()){
+            if(containedSkill.getId() == skill.getId()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //todo findFollowedUser in repository
+    //todo modify controller
+    //todo suivre tuto
+    //https://www.toptal.com/spring/beginners-guide-to-mvc-with-spring-framework
 
     public User() {}
     public User(Long id, String username, String email){
