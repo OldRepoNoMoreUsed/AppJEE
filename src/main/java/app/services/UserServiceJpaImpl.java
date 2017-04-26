@@ -1,5 +1,6 @@
 package app.services;
 
+import app.models.Project;
 import app.models.Skill;
 import app.models.User;
 import app.repositories.SkillRepository;
@@ -92,5 +93,10 @@ public class UserServiceJpaImpl implements UserService {
 
     public User findOneUser(long id){
         return this.userRepo.findOne(id);
+    }
+
+    @Override
+    public List<Project> findListProject(Long id){
+        return this.userRepo.getProjectList(id);
     }
 }

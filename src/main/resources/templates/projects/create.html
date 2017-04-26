@@ -18,7 +18,7 @@
           th:errors="*{title}">Invalid title</span>
 
     <div><label for="description">Description:</label></div>
-    <input id="description" type="text" name="description" th:value="*{description}" />
+    <textarea rows="4" cols="50" id="description" type="text" name="description" th:value="*{description}">Write description...</textarea>
     <span class="formError" th:if="${#fields.hasErrors('description')}"
           th:errors="*{description}">Invalid description</span>
 
