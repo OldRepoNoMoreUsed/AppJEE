@@ -2,9 +2,11 @@ package app.controllers;
 
 import app.models.Post;
 import app.models.Project;
+import app.models.User;
 import app.services.PostService;
 //import app.services.PostServiceStubImpl;
 import app.services.ProjectService;
+import app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -22,8 +24,19 @@ public class HomeController {
     @Autowired
     private ProjectService projectService;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping("/")
     public String index(Model model){
+        User currentUser = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(currentUser == null){
+            model.addAttribute("islog", false);
+        }
+        else{
+            model.addAttribute("islog", true);
+        }
+
         List<Project>latest5Posts = projectService.findLatest5();
         model.addAttribute("latest5Posts", latest5Posts);
 

@@ -22,9 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.validation.Valid;
 import java.util.List;
 
-/**
- * Created by mega- on 22.04.2017.
- */
 @Controller
 public class ProjectController {
     @Autowired
@@ -42,6 +39,14 @@ public class ProjectController {
     @RequestMapping(value = "/projects/projects")
     public String index(Model model){
         List<Project>projects = projectService.findAll();
+        User currentUser = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(currentUser == null){
+            model.addAttribute("islog", false);
+        }
+        else{
+            model.addAttribute("islog", true);
+        }
+
         if(projects == null){
             notifyService.addErrorMessage("Cannot find any project");
             return "redirect:/projects";
@@ -53,6 +58,14 @@ public class ProjectController {
     @RequestMapping("/projects/view/{id}")
     public String view(@PathVariable("id") long id, Model model, CreatePostForm createPostForm){
         Project project = projectService.findById(id);
+        User currentUser = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(currentUser == null){
+            model.addAttribute("islog", false);
+        }
+        else{
+            model.addAttribute("islog", true);
+        }
+
         if(project == null){
             notifyService.addErrorMessage("Cannot find project #" + id);
             return "redirect:/";
@@ -65,12 +78,28 @@ public class ProjectController {
             notifyService.addErrorMessage("Cannot find posts");
             return "redirect:/";
         }
+        for(User user: project.getAvailableUser()){
+            if(user.getId() == currentUser.getId()){
+                model.addAttribute("posts", posts);
+                model.addAttribute("userIn", true);
+                return "projects/view";
+            }
+        }
         model.addAttribute("posts", posts);
+        model.addAttribute("userIn", false);
         return "projects/view";
     }
 
     @RequestMapping(value = "/projects/view/{id}", method = RequestMethod.POST)
     public String viewPage(@Valid CreatePostForm createPostForm, BindingResult bindingResult, @PathVariable("id") long id, Model model) {
+        User currentUser = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(currentUser == null){
+            model.addAttribute("islog", false);
+        }
+        else{
+            model.addAttribute("islog", true);
+        }
+
         if (bindingResult.hasErrors()) {
             notifyService.addErrorMessage("Please fill the form correctly!");
             return "projects/view";
@@ -101,7 +130,14 @@ public class ProjectController {
     @RequestMapping(value = "/projects/search", method = RequestMethod.POST)
     public String search(Model model, SearchForm searchForm){
         List<Project>projects = projectService.findByName(searchForm.getSearchTerm());
-        //searchForm.getSearchTerm()
+        User currentUser = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(currentUser == null){
+            model.addAttribute("islog", false);
+        }
+        else{
+            model.addAttribute("islog", true);
+        }
+
         if(projects == null){
             notifyService.addErrorMessage("Cannot find any project");
             return "redirect:/projects/projects";
@@ -115,6 +151,12 @@ public class ProjectController {
         User newMember = userService.findByUsername(name);
         Project currentProject = projectService.findById(id);
         User currentUser = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(currentUser == null){
+            model.addAttribute("islog", false);
+        }
+        else{
+            model.addAttribute("islog", true);
+        }
         List<Post> posts = postService.findByProject(currentProject);
         if(currentProject != null){
             if(!currentProject.hasMembers(newMember)){

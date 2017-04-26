@@ -7,6 +7,7 @@ import app.services.SecurityService;
 import app.services.UserService;
 import app.validator.UserValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,17 +33,27 @@ public class RegisterController {
 
     @RequestMapping(value = "/users/register", method = RequestMethod.GET)
     public String registration(Model model) {
+        User currentUser = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(currentUser == null){
+            model.addAttribute("islog", false);
+        }
+        else{
+            model.addAttribute("islog", true);
+        }
+
         model.addAttribute("registerForm", new User());
         return "users/register";
     }
 
     @RequestMapping(value = "/users/register", method = RequestMethod.POST)
     public String registration(@ModelAttribute("registerForm") User userForm, BindingResult bindingResult, Model model) {
-        //userValidator.validate(userForm, bindingResult);
-
-        /*if (bindingResult.hasErrors()) {
-            return "users/register";
-        }*/
+        User currentUser = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(currentUser == null){
+            model.addAttribute("islog", false);
+        }
+        else{
+            model.addAttribute("islog", true);
+        }
 
         userService.save(userForm);
 
