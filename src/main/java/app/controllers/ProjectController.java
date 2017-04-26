@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -107,5 +108,26 @@ public class ProjectController {
         }
         model.addAttribute("projects", projects);
         return "projects/projects";
+    }
+
+    @RequestMapping(value = "/projects/view/{id}/member", method = RequestMethod.POST)
+    public String addUserMember(@PathVariable Long id, @RequestParam String name, Model model){
+        User newMember = userService.findByUsername(name);
+        Project currentProject = projectService.findById(id);
+        User currentUser = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<Post> posts = postService.findByProject(currentProject);
+        if(currentProject != null){
+            if(!currentProject.hasMembers(newMember)){
+                currentProject.getAvailableUser().add(newMember);
+            }
+            projectService.save(currentProject);
+            model.addAttribute("project", currentProject);
+            model.addAttribute("posts", posts);
+            model.addAttribute("current", currentUser);
+            model.addAttribute("member", newMember);
+        }
+        List<Project> projects = projectService.findAll();
+        model.addAttribute("project", projects);
+        return "redirect:/projects";
     }
 }

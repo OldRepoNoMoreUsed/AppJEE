@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by mega- on 22.04.2017.
@@ -29,7 +30,18 @@ public class Project {
     @Column(nullable = false)
     private Date date = new Date();
 
-    public Project() {}
+    @ManyToMany
+    private List<User> availableUser;
+
+    public Project() {super();}
+
+    public List<User> getAvailableUser() {
+        return availableUser;
+    }
+
+    public void setAvailableUser(List<User> availableUser) {
+        this.availableUser = availableUser;
+    }
 
     public Project(String title, String description, User admin) {
         this.title = title;
@@ -75,6 +87,15 @@ public class Project {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public boolean hasMembers(User user){
+        for(User u: getAvailableUser()){
+            if(u.getId() == user.getId()){
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override

@@ -1,8 +1,10 @@
 package app.controllers;
 
 import app.models.Post;
+import app.models.Project;
 import app.services.PostService;
 //import app.services.PostServiceStubImpl;
+import app.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,14 +20,14 @@ import java.util.stream.Collectors;
 public class HomeController {
 
     @Autowired
-    private PostService postService;
+    private ProjectService projectService;
 
     @RequestMapping("/")
     public String index(Model model){
-        List<Post>latest5Posts = postService.findLatest5();
+        List<Project>latest5Posts = projectService.findLatest5();
         model.addAttribute("latest5Posts", latest5Posts);
 
-        List<Post>latest3Posts = latest5Posts.stream().limit(3).collect(Collectors.toList());
+        List<Project>latest3Posts = latest5Posts.stream().limit(3).collect(Collectors.toList());
         model.addAttribute("latest3posts", latest3Posts);
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

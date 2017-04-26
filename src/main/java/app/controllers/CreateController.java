@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * Created by mega- on 22.04.2017.
@@ -41,9 +42,17 @@ public class CreateController {
             return "projects/projects";
         }
         User current = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
-        Project p = new Project(createForm.getTitle(), createForm.getDescription(), current);
+        String title = createForm.getTitle();
+        List<Project> project = projectService.findByName(title);
+        if(project == null){
+            Project p = new Project(createForm.getTitle(), createForm.getDescription(), current);
+            projectService.create(p);
+        }
+        else{
+            notifyService.addErrorMessage("This name is already used");
+            return "projects/projects";
+        }
 
-        projectService.create(p);
 
         notifyService.addInfoMessage("Project created");
         return "redirect:/projects/projects";
