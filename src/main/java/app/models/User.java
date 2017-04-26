@@ -45,11 +45,6 @@ public class User {
         return false;
     }
 
-    //todo findFollowedUser in repository
-    //todo modify controller
-    //todo suivre tuto
-    //https://www.toptal.com/spring/beginners-guide-to-mvc-with-spring-framework
-
     public User() {}
     public User(Long id, String username, String email){
         this.id = id;

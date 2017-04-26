@@ -56,4 +56,9 @@ public class ProjectServiceJpaImpl implements ProjectService{
     public void deleteById(Long id) {
         this.projectRepo.delete(id);
     }
+
+    @Override
+    public void save(Project project){
+        this.projectRepo.save(project);
+    }
 }

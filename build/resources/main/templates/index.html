@@ -6,24 +6,29 @@
 
 <body>
 <header th:replace="layout::site-header"/>
-
+<h1>MeetSkill</h1>
 <aside>
     <h2>Recent Posts</h2>
     <a href="#" th:each="p : ${latest5Posts}" th:text="${p.title}" th:href="@{/posts/view/{id}/(id=${p.id})}">Work</a>
 </aside>
 
 <main id="posts">
+    <article>
+        <h2>What is MeetSkill</h2>
+        <p>MeetSkill is a webapp made with SpringFramework.</p>
+    </article>
+    <h2>Last project on MeetSkill</h2>
     <article th:each="p : ${latest3posts}">
-        <h2 class="title" th:text="${p.title}">Post Title</h2>
+        <h3 class="title" th:text="${p.title}">Post Title</h3>
+        <p class="content" th:utext="${p.description}">Post content</p>
         <div class="date">
             <i>Posted on</i>
             <span th:text="${#dates.format(p.date,'dd-MMM-yyyy')}">20-Avr-2017</span>
-            <span th:if="${p.author}" th:remove="tag">
+            <span th:if="${p.admin}" th:remove="tag">
                 <i>by</i>
-                <span th:text="${p.author.username}">Sommer Nicolas</span>
+                <span th:text="${p.admin.username}">Sommer Nicolas</span>
             </span>
         </div>
-        <p class="content" th:utext="${p.body}">Post content</p>-->
     </article>
 </main>
 
