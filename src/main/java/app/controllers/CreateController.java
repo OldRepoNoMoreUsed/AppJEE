@@ -32,7 +32,14 @@ public class CreateController {
     private NotificationService notifyService;
 
     @RequestMapping("/projects/create")
-    public String create(CreateForm createForm){
+    public String create(CreateForm createForm, Model model){
+        User currentUser = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(currentUser == null){
+            model.addAttribute("islog", false);
+        }
+        else{
+            model.addAttribute("islog", true);
+        }
         return "projects/create";
     }
 
