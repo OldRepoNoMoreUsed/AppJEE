@@ -31,6 +31,14 @@ public class UserController {
 
     @RequestMapping(value = "/users")
     public String index(Model model){
+        User currentUser = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(currentUser == null){
+            model.addAttribute("islog", false);
+        }
+        else{
+            model.addAttribute("islog", true);
+        }
+
         List<User>users = userService.findAll();
         if(users == null){
             notifyService.addErrorMessage("Cannot find any user");
@@ -45,6 +53,13 @@ public class UserController {
         User user = userService.findById(id);
         String email = user.getemail();
         User current = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(current == null){
+            model.addAttribute("islog", false);
+        }
+        else{
+            model.addAttribute("islog", true);
+        }
+
         if (user == null) {
             notifyService.addErrorMessage("Cannot find user #" + id);
             return "redirect:/";
@@ -58,6 +73,14 @@ public class UserController {
 
     @RequestMapping(value = "/users/search", method = RequestMethod.POST)
     public String search(Model model, SearchForm searchForm){
+        User currentUser = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(currentUser == null){
+            model.addAttribute("islog", false);
+        }
+        else{
+            model.addAttribute("islog", true);
+        }
+
         List<User>users = userService.findByName(searchForm.getSearchTerm());
         if(users == null){
             notifyService.addErrorMessage("Cannot find any user");
@@ -72,6 +95,12 @@ public class UserController {
         Skill skill = userService.findOneSkill(skillId);
         User user = userService.findOneUser(id);
         User current = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(current == null){
+            model.addAttribute("islog", false);
+        }
+        else{
+            model.addAttribute("islog", true);
+        }
 
         if(user != null){
             if(!user.hasSkill(skill)){

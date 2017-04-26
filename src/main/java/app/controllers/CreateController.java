@@ -9,6 +9,7 @@ import app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,7 +37,15 @@ public class CreateController {
     }
 
     @RequestMapping(value = "/projects/create", method = RequestMethod.POST)
-    public String createPage(@Valid CreateForm createForm, BindingResult bindingResult) {
+    public String createPage(@Valid CreateForm createForm, BindingResult bindingResult, Model model) {
+        User currentUser = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        if(currentUser == null){
+            model.addAttribute("islog", false);
+        }
+        else{
+            model.addAttribute("islog", true);
+        }
+
         if (bindingResult.hasErrors()) {
             notifyService.addErrorMessage("Please fill the form correctly!");
             return "projects/projects";

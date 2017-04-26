@@ -10,18 +10,23 @@
 <body>
 <header th:fragment="site-header" th:remove="tag">
     <header>
-        <a href="index.html" th:href="@{/}">Home</a>
-        <a href="users/users.html" th:href="@{/users}">Users</a>
-        <a href="login.html" th:href="@{/login}">Login</a>
-        <a href="users/register.html" th:href="@{/users/register}">Register</a>
-
-        <a href="projects/projects.html" th:href="@{/projects/projects}">Projects</a>
-        <a href="projects/create.html" th:href="@{/projects/create}">Create Project</a>
-        <a href="projects/create.html" th:href="@{/logout}">Logout</a>
-
-        <div id="logged-in-info" th:text="${username}"><span>Hello, username</span>
-
+        <div th:if="${islog}">
+            <a href="index.html" th:href="@{/}">Home</a>
+            <a href="users/users.html" th:href="@{/users}">Users</a>
+            <a href="projects/projects.html" th:href="@{/projects/projects}">Projects</a>
+            <a href="projects/create.html" th:href="@{/projects/create}">Create Project</a>
+            <a href="projects/create.html" th:href="@{/logout}">Logout</a>
         </div>
+
+        <div th:if="${not islog}">
+            <a href="index.html" th:href="@{/}">Home</a>
+            <a href="login.html" th:href="@{/login}">Login</a>
+            <a href="users/register.html" th:href="@{/users/register}">Register</a>
+        </div>
+
+
+        <div id="logged-in-info" th:text="${username}"><span>Hello, username</span></div>
+
     </header>
 
     <ul id="messages" th:with="notifyMessages=${session[T(app.services.NotificationServiceImpl).NOTIFY_MSG_SESSION_KEY]}">
