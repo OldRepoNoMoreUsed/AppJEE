@@ -46,7 +46,7 @@ public class RegisterController {
 
         userService.save(userForm);
 
-        //securityService.autologin(userForm.getUsername(), userForm.getPasswordConfirm());
+        securityService.autologin(userForm.getUsername(), userForm.getPasswordHash());
 
         return "redirect:/";
     }

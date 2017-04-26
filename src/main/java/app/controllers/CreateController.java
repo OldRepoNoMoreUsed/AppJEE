@@ -38,7 +38,7 @@ public class CreateController {
     public String createPage(@Valid CreateForm createForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             notifyService.addErrorMessage("Please fill the form correctly!");
-            return "projects/create";
+            return "projects/projects";
         }
         User current = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         Project p = new Project(createForm.getTitle(), createForm.getDescription(), current);
@@ -46,6 +46,6 @@ public class CreateController {
         projectService.create(p);
 
         notifyService.addInfoMessage("Project created");
-        return "redirect:/projects/search";
+        return "redirect:/projects/projects";
     }
 }

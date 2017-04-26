@@ -17,11 +17,10 @@
 
         <a href="projects/projects.html" th:href="@{/projects}">Projects</a>
         <a href="projects/create.html" th:href="@{/projects/create}">Create Project</a>
+        <a href="projects/create.html" th:href="@{/logout}">Logout</a>
 
         <div id="logged-in-info" th:text="${username}"><span>Hello, username</span>
-            <form methode="post" th:action="@{/users/logout}">
-                <input type="submit" value="Logout"/>
-            </form>
+
         </div>
     </header>
 
