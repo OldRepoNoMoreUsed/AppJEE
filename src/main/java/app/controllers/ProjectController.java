@@ -52,6 +52,7 @@ public class ProjectController {
             return "redirect:/projects";
         }
         model.addAttribute("projects", projects);
+        model.addAttribute("search", false);
         return "projects/projects";
     }
 
@@ -123,10 +124,10 @@ public class ProjectController {
             return "redirect:/";
         }
         model.addAttribute("posts", posts);
+        model.addAttribute("user", currentUser);
         return "projects/view";
     }
 
-    //@RequestMapping("/projects/search")
     @RequestMapping(value = "/projects/search", method = RequestMethod.POST)
     public String search(Model model, SearchForm searchForm){
         List<Project>projects = projectService.findByName(searchForm.getSearchTerm());
@@ -142,13 +143,13 @@ public class ProjectController {
             notifyService.addErrorMessage("Cannot find any project");
             return "redirect:/projects/projects";
         }
+        model.addAttribute("search", true);
         model.addAttribute("projects", projects);
         return "projects/projects";
     }
 
     @RequestMapping(value = "/projects/view/{id}/member", method = RequestMethod.POST)
-    public String addUserMember(@PathVariable Long id, @RequestParam String name, Model model){
-        User newMember = userService.findByUsername(name);
+    public String addUserMember(@PathVariable Long id, Model model){
         Project currentProject = projectService.findById(id);
         User currentUser = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
         if(currentUser == null){
@@ -159,17 +160,18 @@ public class ProjectController {
         }
         List<Post> posts = postService.findByProject(currentProject);
         if(currentProject != null){
-            if(!currentProject.hasMembers(newMember)){
-                currentProject.getAvailableUser().add(newMember);
+            if(!currentProject.hasMembers(currentUser)){
+                currentProject.getAvailableUser().add(currentUser);
             }
             projectService.save(currentProject);
             model.addAttribute("project", currentProject);
             model.addAttribute("posts", posts);
             model.addAttribute("current", currentUser);
-            model.addAttribute("member", newMember);
+            model.addAttribute("member", currentUser);
         }
         List<Project> projects = projectService.findAll();
         model.addAttribute("project", projects);
-        return "redirect:/projects";
+        model.addAttribute("projectId", id);
+        return "redirect:/projects/view/" + id;
     }
 }

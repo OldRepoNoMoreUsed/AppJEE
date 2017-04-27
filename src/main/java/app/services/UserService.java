@@ -1,5 +1,6 @@
 package app.services;
 
+import app.models.Project;
 import app.models.Skill;
 import app.models.User;
 
@@ -23,4 +24,5 @@ public interface UserService{
 
     List<Skill> findAllSkill();
     Skill findOneSkill(long id);
+    List<Project> findListProject(Long id);
 }
