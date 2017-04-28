@@ -95,8 +95,8 @@ public class UserServiceJpaImpl implements UserService {
         return this.userRepo.findOne(id);
     }
 
-    @Override
-    public List<Project> findListProject(Long id){
-        return this.userRepo.getProjectList(id);
-    }
+//    @Override
+//    public List<Project> findListProject(Long id){
+//        return this.userRepo.getProjectList(id);
+//    }
 }

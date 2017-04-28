@@ -23,7 +23,7 @@
     <div th:if="${search}">
         <h1>Search result</h1>
     </div>
-    
+
     <article th:each="p : ${projects}">
         <h2 class="title" th:text="${p.title}">Project Title</h2>
         <div class="date">

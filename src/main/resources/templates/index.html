@@ -9,7 +9,7 @@
 <h1>MeetSkill</h1>
 <aside>
     <h2>Recent Posts</h2>
-    <a href="#" th:each="p : ${latest5Posts}" th:text="${p.title}" th:href="@{/posts/view/{id}/(id=${p.id})}">Work</a>
+    <a href="#" th:each="p : ${latest5Posts}" th:text="${p.title}" th:href="@{/projects/view/{id}/(id=${p.id})}">Work</a>
 </aside>
 
 <main id="posts">

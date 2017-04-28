@@ -30,14 +30,15 @@ public class HomeController {
     @RequestMapping("/")
     public String index(Model model){
         User currentUser = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
+        List<Project>latest5Posts = projectService.findLatest5();
         if(currentUser == null){
             model.addAttribute("islog", false);
         }
         else{
             model.addAttribute("islog", true);
+            //latest5Posts = userService.findListProject(currentUser.getId());
         }
 
-        List<Project>latest5Posts = projectService.findLatest5();
         model.addAttribute("latest5Posts", latest5Posts);
 
         List<Project>latest3Posts = latest5Posts.stream().limit(3).collect(Collectors.toList());

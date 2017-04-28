@@ -24,5 +24,5 @@ public interface UserService{
 
     List<Skill> findAllSkill();
     Skill findOneSkill(long id);
-    List<Project> findListProject(Long id);
+    //List<Project> findListProject(Long id);
 }
